@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Tambah Data</title>
+    <title>Edit Data</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,37 +14,51 @@
 </head>
 
 <body>
-    <h2>Tambah Data</h2>
-    <form action="proses_tambah.php" method="post">
+    <h2>Edit</h2>
+    <?php
+        include 'koneksi.php';
+        $id = $_GET['id'];
+        $data = mysqli_query($koneksi, "SELECT * FROM arkatama_test WHERE id='$id'");
+        while($d = mysqli_fetch_array($data)){
+            ?>
+    <form action="update.php" method="post">
         <table>
             <tr>
                 <td>Nama</td>
                 <td>:</td>
-                <td><input type="text" name="nama"></td>
+                <td>
+                    <input type="hidden" name="id" value="<?php echo $d['id']; ?>">
+                    <input type="text" name="nama" value="<?php echo $d['name']; ?>">
+                </td>
             </tr>
             <tr>
                 <td>Age</td>
                 <td>:</td>
-                <td><input type="text" name="age"></td>
+                <td>
+                    <input type="number" name="age" value="<?php echo $d['age']; ?>">
+                </td>
             </tr>
             <tr>
                 <td>City</td>
                 <td>:</td>
-                <td><input type="text" name="city"></td>
+                <td>
+                    <input type="text" name="city" value="<?php echo $d['city']; ?>">
+                </td>
             </tr>
             <tr>
                 <td></td>
                 <td></td>
-                <td><input type="button" value="Tambah">
-                    <button><a href="index.php">Batal</a></button>
+                <td>
+                    <input type="submit" value="Simpan">
+                    <button href="index.php">Batal</button>
                 </td>
             </tr>
         </table>
     </form>
-    <?PHP
-    @$PAGE = $_GET['page'];
+    <?php
+        
+    }
     ?>
-
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
